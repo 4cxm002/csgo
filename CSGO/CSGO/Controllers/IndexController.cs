@@ -19,7 +19,7 @@ namespace CSGO.Controllers
         public ActionResult Login(LoginViewModel lvm)
         {
             //CSGO.Domain.Repository.LoginRepository lr = new Domain.Repository.LoginRepository();
-            //lr.Login("moorgazm", "fhorn160");
+            //lr.Login("moorgazm", "password");
 
             var model = new IndexViewModel();
 
