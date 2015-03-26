@@ -1,0 +1,7 @@
+﻿@model CSGO.Models.LoginViewModel
+
+@using (Html.BeginForm("Index", "Login", FormMethod.Post))
+{
+    @Html.EditorFor(m => m.Username, "Username", new { @class = "form-control" })
+    @Html.EditorFor(m => m.Password, "Password", new { @class = "form-control" })
+}

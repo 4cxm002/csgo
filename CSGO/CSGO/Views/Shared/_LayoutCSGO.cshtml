@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>@ViewBag.Title - CS:GO</title>
+        <!-- Bootstrap -->
+        <link href="~/css/bootstrap.min.css" rel="stylesheet">
+        <!-- DataTables -->
+        <link rel="stylesheet" type="text/css" href="~/css/dataTables.bootstrap.css">
+        <!-- Datepicker -->
+        <link rel="stylesheet" type="text/css" href="~/css/datepicker3.css"/>
+        <!-- Custom -->
+        <link href="~/css/ons-theme.css" rel="stylesheet">
+
+        <link rel="icon" href="~/images/favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <!-- Nav Bar -->
+        <header class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="~/">
+                        Brand Logo
+                    </a>
+                </div>
+                <nav toggle id="navbar" class="collapse navbar-collapse">
+                     @{Html.RenderPartial("~/Views/Partial/_PartialLogin.cshtml", new CSGO.Models.LoginViewModel());}
+                </nav>
+            </div>
+        </header>
+        <!-- End Nav Bar -->
+        <!-- Container -->
+        <div class="container">
+            <!-- Row 1 -->
+            <div class="row">
+                <!-- 12 Columns-->
+                <div class="col-md-12">
+                    <!-- Page Header-->
+                    <div class="page-header">
+                        <h1>@ViewBag.Title</h1>
+                    </div>
+                    <!-- End Page Header-->
+                    <!-- Alerts -->
+                    @if (TempData["message"] != null)
+                    {
+                        <div class="alert @TempData["style"] alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            @TempData["message"]
+                        </div>
+                    }
+                    <!-- End Alerts -->
+                    <!-- Panel -->
+                    @RenderBody()
+                    <!-- End Panel -->
+                </div>
+                <!-- End 12 Columns -->
+            </div>
+            <!-- End Row 1-->
+        </div>
+        <!-- Container -->
+        <!-- Modal -->
+        <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title text-danger" id="myModalLabel">Confirm Delete</h4>
+                    </div>
+                    <div class="modal-body bg-danger">
+                        <p>Are you sure you want to delete this?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" id="confirm">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script type="text/javascript" src="~/js/jquery-1.11.1.min.js"></script>
+        <!-- Bootstrap -->
+        <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+        <!-- DataTables -->
+        <script type="text/javascript" src="~/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="~/js/dataTables.bootstrap.js"></script>
+        <script type="text/javascript" src="~/js/bootstrap-datepicker.js"></script>
+        <script type="text/javascript" src="~/js/jquery.validate.js"></script>
+        <script type="text/javascript" src="~/js/jquery.validate.unobtrusive.js"></script>
+        <script type="text/javascript">
+            $('#confirmDelete').on('show.bs.modal', function (e) {
+                $message = $(e.relatedTarget).attr('data-message');
+                $(this).find('.modal-body p').text($message);
+                $title = $(e.relatedTarget).attr('data-title');
+                $(this).find('.modal-title').text($title);
+                // Pass form reference to modal for submission on yes/ok
+                var form = $(e.relatedTarget).closest('form');
+                $(this).find('.modal-footer #confirm').data('form', form);
+            });
+            // Form confirm (yes/ok) handler, submits form
+            $('#confirmDelete').find('.modal-footer #confirm').on('click', function () {
+                $(this).data('form').submit();
+            });
+        </script>
+    </body>
+</html>
